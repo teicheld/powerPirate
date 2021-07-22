@@ -1,0 +1,74 @@
+#!/bin/bash
+
+################################################################functions##################################################################################
+sayGoodbye() {
+	echo "H4sIAAAAAAAAA5VPMRLAMAjafQVblzZfykd4fCNounSJnidC5CJwGIGZ8aOY/5RGQWFaVU5V89wzreUGch5g5aPXzRuPy31pQdmlE/UPo3Q0X/iuvjZOD0fEC0I3+bMtAQAA" | base64 -d | gunzip
+}
+
+printHelp () {
+	echo Usage: ./powerpirate [searchTermList]
+}
+
+function getTorrentTitles {
+	magnetLinksOrMore=$1
+	sedPatternHex2Char='s/%28/(/;s/%2B/+/g;s/%2C/,/g;s/%29/)/g;s/%5B/[/g;s/%5D/]/g;s/%7B/{/g;s/%7D/}/g;s/%3A/:/g'
+grep --only-matching 'magnet.*announce' $magnetLinksOrMore | sed "s/magnet.*&dn=//;s/&tr=.*//;s/+/ /g;$sedPatternHex2Char"
+}
+function createStart_downloadingsh_AndAskToStart {
+	outputFolder=$1
+	echo 'H4sIACoxR2AAA11Q204CMRR8Zr/iBJGbdg9ijLfsg8ijf6DGlO1ht2HbkrYgBPl3uzchPnU609M5M2olpAW2BWG+dWG4IBFxK/k0BSage2KxC4wpvmOp0enGWtKetapLbiaTIEu93ni2lAWB4pkmX0i9crHf+SAuPHN8S0yR54J7nni7ocAXJkvQqzWWtnG4RardyZvKx0UXkHPlPFnwObU0lEYOlsaC2sOarDOaF636JheW231UyhKkPguI47h5FAkDUSfnLk96Q0pzAz0JP+BIwMDhaeIDEZ8dtmOIg1HUqSOGwczSukyfaWOJpdwR9Mo//5cQZjRX9GdVyye/+h6P+0InlV/f2yQeV/AKvzAL5+X0AYdYgVkga+oVrxv0iKMa3c3wvUFz/KzR/QwPDZrjsUa3L/iEWRVnW1Ye8retY+9Qrns8K0tT9AvTEJGxMQIAAA==' | base64 -d | gunzip > $outputFolder/start_downloading.sh
+	chmod +x $outputFolder/start_downloading.sh 
+	read -p "start torrents now? [y/n]" answer
+	if [ 'y' == $answer ] 
+	then
+		cd $outputFolder
+		./start_downloading.sh
+	fi
+}
+
+
+
+#################################################program_start#############################################################################
+if [ $1 ] && [ -f $1 ]; then 
+	searchTermList="$1"
+elif [ ! $1 ]; then
+	while read line
+	do
+		echo $line >> PP_stdin_searchTermList
+	done
+	searchTermList=PP_stdin_searchTermList
+else
+	sayGoodbye
+	printHelp
+	exit
+fi
+
+#removing whitespaces in the searchTerms.
+rm -r /tmp/powerPirate/
+mkdir /tmp/powerPirate/
+mv "$searchTermList" "/tmp/powerPirate/$searchTermList"
+outputFolder="$(echo $searchTermList | sed 's/.txt//')"
+mkdir -p "$outputFolder"
+mv "/tmp/powerPirate/$searchTermList" "$outputFolder/topicsOfTheseBooks.txt"
+searchTermList="$outputFolder/topicsOfTheseBooks.txt"
+while read searchTerm
+do
+	searchTerm=$(echo $searchTerm | sed 's/ /%20/g')
+	tooBigPageNumber=99
+	rareSearchTerm=dgwf3fn3ofnsofjsodijgpfy7dghwegdy
+	emptyPageLinesCount=$(curl --silent https://thepiratebay.party/search/$rareSearchTerm/$tooBigPageNumber/99/601 | wc -l)
+	for (( i=1; $emptyPageLinesCount != $(curl --silent https://thepiratebay.party/search/$searchTerm/$i/99/601 | wc -l); i++ ))
+	do
+		clear
+		echo "searchterm: $(echo $searchTerm | sed 's/%20/ /g')"
+		echo "page:       $i" 
+		curl --silent https://thepiratebay.party/search/$searchTerm/$i/99/601 > /tmp/powerPirate/pirateBay.tmp
+		cat /tmp/powerPirate/pirateBay.tmp | grep -o "magnet:.*announce" | sed s/"amp;"//g >> "$outputFolder/magnetlinks.txt"
+		getTorrentTitles /tmp/powerPirate/pirateBay.tmp
+		getTorrentTitles /tmp/powerPirate/pirateBay.tmp >> "$outputFolder/titles.txt"
+	done
+done < "$searchTermList"
+createStart_downloadingsh_AndAskToStart $outputFolder
+sayGoodbye
+
+
