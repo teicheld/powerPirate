@@ -32,11 +32,12 @@ install_dependencies
 if [ $1 ] && [ -f $1 ]; then 
 	searchTermList="$1"
 elif [ ! $1 ]; then
+	randomString=$(chars=1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM; for i in {1..8} ; do echo -n "${chars:RANDOM%${#chars}:1}"; done)
 	while read line
 	do
-		echo $line >> powerPirateResult
+		echo $line >> powerPirateResult_$randomString
 	done
-	searchTermList=powerPirateResult
+	searchTermList=powerPirateResult_$randomString
 else
 	sayGoodbye
 	printHelp
