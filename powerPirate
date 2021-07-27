@@ -18,25 +18,25 @@ function createStart_downloadingsh_AndAskToStart {
 	outputFolder=$1
 	echo 'H4sIACoxR2AAA11Q204CMRR8Zr/iBJGbdg9ijLfsg8ijf6DGlO1ht2HbkrYgBPl3uzchPnU609M5M2olpAW2BWG+dWG4IBFxK/k0BSage2KxC4wpvmOp0enGWtKetapLbiaTIEu93ni2lAWB4pkmX0i9crHf+SAuPHN8S0yR54J7nni7ocAXJkvQqzWWtnG4RardyZvKx0UXkHPlPFnwObU0lEYOlsaC2sOarDOaF636JheW231UyhKkPguI47h5FAkDUSfnLk96Q0pzAz0JP+BIwMDhaeIDEZ8dtmOIg1HUqSOGwczSukyfaWOJpdwR9Mo//5cQZjRX9GdVyye/+h6P+0InlV/f2yQeV/AKvzAL5+X0AYdYgVkga+oVrxv0iKMa3c3wvUFz/KzR/QwPDZrjsUa3L/iEWRVnW1Ye8retY+9Qrns8K0tT9AvTEJGxMQIAAA==' | base64 -d | gunzip > $outputFolder/start_downloading.sh
 	chmod +x $outputFolder/start_downloading.sh 
-	read -p "start torrents now? [y/n]" answer
-	if [ 'y' == $answer ] 
-	then
-		cd $outputFolder
-		./start_downloading.sh
+	echo "start downloads by executing \"./start_downloading.sh\" out of the directory \"$outputFolder\"."
+}
+
+function install_dependencies {
+	if [ ! -f /usr/bin/aria2c ]; then
+		sudo apt install aria2
 	fi
 }
 
-
-
 #################################################program_start#############################################################################
+install_dependencies 
 if [ $1 ] && [ -f $1 ]; then 
 	searchTermList="$1"
 elif [ ! $1 ]; then
 	while read line
 	do
-		echo $line >> PP_stdin_searchTermList
+		echo $line >> powerPirateResult
 	done
-	searchTermList=PP_stdin_searchTermList
+	searchTermList=powerPirateResult
 else
 	sayGoodbye
 	printHelp
