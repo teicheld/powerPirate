@@ -1,6 +1,6 @@
 # The PowerPirate
 
-let you download all torrents from thePirateBay.party linked with the searchterms of the list you provide as argument.
+let you download all books from thePirateBay.party linked with the searchterms of the list you provide as argument or through stdin.
 
 ## process in detail
 
