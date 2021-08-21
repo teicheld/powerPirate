@@ -16,9 +16,11 @@ grep --only-matching 'magnet.*announce' $magnetLinksOrMore | sed "s/magnet.*&dn=
 }
 function createStart_downloadingsh_AndAskToStart {
 	outputFolder=$1
-	echo 'H4sIAItVEGEAA3WRy07DMBBF1/FXDFBeBXcKiLeyoLDkDwAhN54kFold2W6hgv47dtK0FY9VbubMeHyv6zepLPAZSPOuKyMkSSasEqcZcAnb6ypuA+e1+OCZ0dnUWtKed9SlJ8NhwEpPpp7nqiKoRaHJV0q/uYH/8AGOQz95kZXcEUludDVPvZ1Si5yYEa8Dl8KLjXo8voHyF21GHDmnjP5j3yYON/NkZ6JKL4bA6s6zN40Px3agFLULLeBL6soQjTjIjYV6DhOyzmhRdfRRja2wcxaxAqU3AsT+YNnEpAGWlMKVae+AstJAT8EXOJKw73A98YyItw67McT9Q5a0lsJgYWkS0y20scQz4Qh68cyfpsOMFjWtVrV4va/9H/T3pE6bfXvepoN+I4/wFYvw3T29wgNsxCgU29I9Hi/VNR626nyET0v1gC+tuhzh51I94KJVZ3d4g0W0o3J4gi3g+Sp27H3G+y462/ByG/PXLEmySXyfENZ/vSzJVUhXE/sG0s8FosICAAA=' | base64 -d | gunzip > $outputFolder/start_downloading.sh
-	chmod +x $outputFolder/start_downloading.sh 
-	echo "start downloads by executing \"./start_downloading.sh\" out of the directory \"$outputFolder\"."
+	echo 'H4sIAF5VFWEAA5WSwW7CMAyGz+QpPJi4pbAddkFc9gK77DYhlCUutWgTFLuFSXv4pYVs1eBCjv78279/ZQY2ohEERxGthEjIs3ueohI+4AG0AxeOvg7Gkd/BZgVSoQc1afZp9JitQJU0kpXkiSt0WZMluvtFvcAaAQkHsvxWvlfI+BrCngs5CXzDsaIaIV3izj2rtFBNLgumeczicYBT2MB8DuctV1C54FH987ZoPYcovck/6RVUdyV3M01lIplnO9geZTYFrRtz0jZ428aIXnSmvH5aLhMmf2hFl30Ojdl5lJr8JR+tP1M/irGVZkSng6+/1hJbPCM2HeomcWfEjOr9+AG6KzpIGJkp+Bv7xjg5E4ydqdcvvc9UyNbTOc2hxvT7ikXRhA63OdJtbim4Uj9O2lCvpAIAAA==' | base64 -d | gunzip > $outputFolder/start_downloading.sh
+        chmod +x $outputFolder/start_downloading.sh
+	echo 'H4sIAENWFWEAA42QsW4DIQyGZ/wUFoqUdqCntGPVpS/QJVvUgRy+OysER0CSDn34Qq7lMpYJ8P//n20ecIdmQL160fj5inmigKC89DazhLf6D+S5yTZNBjife/FGw8Cwt4kcx/J+oH6S4vqTaPzG/pzROFx365r4/Kghc/ZU1dUY7JHuHaUO5YpZTtynj2E7UaJ3kUN6yl+55F0n9oSRrJs14ATUreGFfyNU+BjphMbwGCSS6QuvVqutgNpkSh0vaC6onVyDF+s4jN3qdyyNeuDAaSLXzdalBGpfGjmAKltwEgiWxS0raJR/Qs4hScyV1jAl/getaUI3ugEAAA==' | base64 -d | gunzip > $outputFolder/.move_finished_download.sh
+	chmod +x $outputFolder/.move_finished_download.sh
+	echo "created skript \"start_downloading.sh\". You can execute it now"
 }
 
 function install_dependencies {
@@ -45,7 +47,7 @@ else
 fi
 
 #removing whitespaces in the searchTerms.
-rm -r /tmp/powerPirate/
+[ -d /tmp/powerPirate ] && rm -r /tmp/powerPirate/
 mkdir /tmp/powerPirate/
 mv "$searchTermList" "/tmp/powerPirate/$searchTermList"
 outputFolder="$(echo $searchTermList | sed 's/.txt//')"
@@ -71,5 +73,3 @@ do
 done < "$searchTermList"
 createStart_downloadingsh_AndAskToStart $outputFolder
 sayGoodbye
-
-
