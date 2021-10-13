@@ -18,7 +18,7 @@ function createStart_downloadingsh_AndAskToStart {
 	outputFolder=$1
 	echo 'H4sIAMDhZmEAA5WRwW7DIAyGz8tTsPZM1u2wS5UnqabKA6exCqYCJ+vefqYTU6T1Uo58/PZnvDUuIwgaTxmdpExYto+cjkZzMM/GeuPTF4cEnvhkPvZGJmTTPcWzll6zvelGWsVGYioT+pZpEbv8oRp4yOquaQeZ4M3VnpuVz8ZYG+FqXWI354wsttEyvO52iokvs9iRApoIJ0YJxOfSy1UUfup7FHCTLYjeJg7fg+QZf1GBBW1U7kFgdV/L36D/R2+RgqVQ4jv91ljNBPMCYXivnnrR1HWceAmom+1f+pgWPLbPPLYnfZk0U6eyEEJyIFpx4MRNvY4z84KZRtL9VL3uB+jN2OoxAgAA' | base64 -d | gunzip > "$outputFolder/start_downloading.sh"
         chmod +x "$outputFolder/start_downloading.sh"
-	echo 'H4sIAO/eZmEAA8tMU4hW0E1TUFIxVlKItVYoyUjNU+DizMlPTizJzM+zBYlzpeZkwpUZwpVxKUAAsmJDJa60TC6unDwF3eIyoGqYlJKCUlpmXmZxRmqKvhIXAAtsKAh1AAAA' | base64 -d | gunzip > "$outputFolder/.move_finished_download.sh"
+	echo 'H4sIANviZmEAA8tMU4hW0E1TUFIxVlKItVYoyUjNU+DizMlPTizJzM+zBYlzpeZkwpUZwpVxKUAAsmJDJa60TC6unDwF3eIyoGqNgvIUTX0VmAolBaW0zLzM4ozUFH0lLgD7qn9lfAAAAA==' | base64 -d | gunzip > "$outputFolder/.move_finished_download.sh"
 	chmod +x "$outputFolder/.move_finished_download.sh"
 	echo "created skript \"start_downloading.sh\". You can execute it now"
 }
