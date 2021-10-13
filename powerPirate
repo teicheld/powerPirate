@@ -16,7 +16,7 @@ grep --only-matching 'magnet.*announce' $magnetLinksOrMore | sed "s/magnet.*&dn=
 }
 function createStart_downloadingsh_AndAskToStart {
 	outputFolder=$1
-	echo 'H4sIACbhZmEAA5WRwU7DMAyGz/QpzHZOGRy4TH2SCU0mcVdriTMlbhlvTzoUFIldlqM//79/O1uwiVAJHCeyGhNT3j7yOh7hAM9gHLj4JT6iYznBxx50IoHuKZyLdcv20I3cyEYWzhO5qqkSs/yhVfBQqrtJO0yMb3aduWnybMCYgFdjo9g5JRI1lebhdbcrmOUyqxnZEwQ8CalnOeder1rgZ+knRTuZTORMFP89aJrpF2VcyITCHSo29dX+Bt0/epNkypmj3JnX4pJMKS3oh/c1ZynU6GWdcPFUfrZ/6UNc6FiPeawtfZ6KZt3KoPfRohbHQaJQ9wMYR/OWFwIAAA==' | base64 -d | gunzip > "$outputFolder/start_downloading.sh"
+	echo 'H4sIAMDhZmEAA5WRwW7DIAyGz8tTsPZM1u2wS5UnqabKA6exCqYCJ+vefqYTU6T1Uo58/PZnvDUuIwgaTxmdpExYto+cjkZzMM/GeuPTF4cEnvhkPvZGJmTTPcWzll6zvelGWsVGYioT+pZpEbv8oRp4yOquaQeZ4M3VnpuVz8ZYG+FqXWI354wsttEyvO52iokvs9iRApoIJ0YJxOfSy1UUfup7FHCTLYjeJg7fg+QZf1GBBW1U7kFgdV/L36D/R2+RgqVQ4jv91ljNBPMCYXivnnrR1HWceAmom+1f+pgWPLbPPLYnfZk0U6eyEEJyIFpx4MRNvY4z84KZRtL9VL3uB+jN2OoxAgAA' | base64 -d | gunzip > "$outputFolder/start_downloading.sh"
         chmod +x "$outputFolder/start_downloading.sh"
 	echo 'H4sIAO/eZmEAA8tMU4hW0E1TUFIxVlKItVYoyUjNU+DizMlPTizJzM+zBYlzpeZkwpUZwpVxKUAAsmJDJa60TC6unDwF3eIyoGqYlJKCUlpmXmZxRmqKvhIXAAtsKAh1AAAA' | base64 -d | gunzip > "$outputFolder/.move_finished_download.sh"
 	chmod +x "$outputFolder/.move_finished_download.sh"
