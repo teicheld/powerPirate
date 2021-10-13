@@ -16,10 +16,10 @@ grep --only-matching 'magnet.*announce' $magnetLinksOrMore | sed "s/magnet.*&dn=
 }
 function createStart_downloadingsh_AndAskToStart {
 	outputFolder=$1
-	echo 'H4sIAF5VFWEAA5WSwW7CMAyGz+QpPJi4pbAddkFc9gK77DYhlCUutWgTFLuFSXv4pYVs1eBCjv78279/ZQY2ohEERxGthEjIs3ueohI+4AG0AxeOvg7Gkd/BZgVSoQc1afZp9JitQJU0kpXkiSt0WZMluvtFvcAaAQkHsvxWvlfI+BrCngs5CXzDsaIaIV3izj2rtFBNLgumeczicYBT2MB8DuctV1C54FH987ZoPYcovck/6RVUdyV3M01lIplnO9geZTYFrRtz0jZ428aIXnSmvH5aLhMmf2hFl30Ojdl5lJr8JR+tP1M/irGVZkSng6+/1hJbPCM2HeomcWfEjOr9+AG6KzpIGJkp+Bv7xjg5E4ydqdcvvc9UyNbTOc2hxvT7ikXRhA63OdJtbim4Uj9O2lCvpAIAAA==' | base64 -d | gunzip > $outputFolder/start_downloading.sh
-        chmod +x $outputFolder/start_downloading.sh
-	echo 'H4sIAENWFWEAA42QsW4DIQyGZ/wUFoqUdqCntGPVpS/QJVvUgRy+OysER0CSDn34Qq7lMpYJ8P//n20ecIdmQL160fj5inmigKC89DazhLf6D+S5yTZNBjife/FGw8Cwt4kcx/J+oH6S4vqTaPzG/pzROFx365r4/Kghc/ZU1dUY7JHuHaUO5YpZTtynj2E7UaJ3kUN6yl+55F0n9oSRrJs14ATUreGFfyNU+BjphMbwGCSS6QuvVqutgNpkSh0vaC6onVyDF+s4jN3qdyyNeuDAaSLXzdalBGpfGjmAKltwEgiWxS0raJR/Qs4hScyV1jAl/getaUI3ugEAAA==' | base64 -d | gunzip > $outputFolder/.move_finished_download.sh
-	chmod +x $outputFolder/.move_finished_download.sh
+	echo 'H4sIAF5VFWEAA5WSwW7CMAyGz+QpPJi4pbAddkFc9gK77DYhlCUutWgTFLuFSXv4pYVs1eBCjv78279/ZQY2ohEERxGthEjIs3ueohI+4AG0AxeOvg7Gkd/BZgVSoQc1afZp9JitQJU0kpXkiSt0WZMluvtFvcAaAQkHsvxWvlfI+BrCngs5CXzDsaIaIV3izj2rtFBNLgumeczicYBT2MB8DuctV1C54FH987ZoPYcovck/6RVUdyV3M01lIplnO9geZTYFrRtz0jZ428aIXnSmvH5aLhMmf2hFl30Ojdl5lJr8JR+tP1M/irGVZkSng6+/1hJbPCM2HeomcWfEjOr9+AG6KzpIGJkp+Bv7xjg5E4ydqdcvvc9UyNbTOc2hxvT7ikXRhA63OdJtbim4Uj9O2lCvpAIAAA==' | base64 -d | gunzip > "$outputFolder/start_downloading.sh"
+        chmod +x "$outputFolder/start_downloading.sh"
+	echo 'H4sIAENWFWEAA42QsW4DIQyGZ/wUFoqUdqCntGPVpS/QJVvUgRy+OysER0CSDn34Qq7lMpYJ8P//n20ecIdmQL160fj5inmigKC89DazhLf6D+S5yTZNBjife/FGw8Cwt4kcx/J+oH6S4vqTaPzG/pzROFx365r4/Kghc/ZU1dUY7JHuHaUO5YpZTtynj2E7UaJ3kUN6yl+55F0n9oSRrJs14ATUreGFfyNU+BjphMbwGCSS6QuvVqutgNpkSh0vaC6onVyDF+s4jN3qdyyNeuDAaSLXzdalBGpfGjmAKltwEgiWxS0raJR/Qs4hScyV1jAl/getaUI3ugEAAA==' | base64 -d | gunzip > "$outputFolder/.move_finished_download.sh"
+	chmod +x "$outputFolder/.move_finished_download.sh"
 	echo "created skript \"start_downloading.sh\". You can execute it now"
 }
 
@@ -31,9 +31,9 @@ function install_dependencies {
 
 #################################################program_start#############################################################################
 install_dependencies 
-if [ $1 ] && [ -f $1 ]; then 
+if [ "$1" ] && [ -f "$1" ]; then 
 	searchTermList="$1"
-elif [ ! $1 ]; then
+elif [ ! "$1" ]; then
 	randomString=$(chars=1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM; for i in {1..8} ; do echo -n "${chars:RANDOM%${#chars}:1}"; done)
 	while read line
 	do
@@ -71,5 +71,5 @@ do
 		getTorrentTitles /tmp/powerPirate/pirateBay.tmp >> "$outputFolder/titles.txt"
 	done
 done < "$searchTermList"
-createStart_downloadingsh_AndAskToStart $outputFolder
+createStart_downloadingsh_AndAskToStart "$outputFolder"
 sayGoodbye
